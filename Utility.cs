@@ -105,10 +105,9 @@ namespace NN
                                         }
                                     }
                                     byte label = BinaryPrimitives.ReverseEndianness(brLabels.ReadByte());
-                                    if (label == 7)
-                                    {
-                                        Images.Add(new Image(pixels, label));
-                                    }
+
+                                    Images.Add(new Image(pixels, label));
+
                                 }
 
                                 return Images;
