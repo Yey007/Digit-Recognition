@@ -1,0 +1,11 @@
+C:\Users\utku_\source\repos\NN-TryAgain\bin\Debug\netcoreapp2.1\NN-TryAgain.deps.json
+C:\Users\utku_\source\repos\NN-TryAgain\bin\Debug\netcoreapp2.1\NN-TryAgain.runtimeconfig.json
+C:\Users\utku_\source\repos\NN-TryAgain\bin\Debug\netcoreapp2.1\NN-TryAgain.runtimeconfig.dev.json
+C:\Users\utku_\source\repos\NN-TryAgain\bin\Debug\netcoreapp2.1\NN-TryAgain.dll
+C:\Users\utku_\source\repos\NN-TryAgain\bin\Debug\netcoreapp2.1\NN-TryAgain.pdb
+C:\Users\utku_\source\repos\NN-TryAgain\obj\Debug\netcoreapp2.1\NN-TryAgain.csprojAssemblyReference.cache
+C:\Users\utku_\source\repos\NN-TryAgain\obj\Debug\netcoreapp2.1\NN-TryAgain.csproj.CoreCompileInputs.cache
+C:\Users\utku_\source\repos\NN-TryAgain\obj\Debug\netcoreapp2.1\NN-TryAgain.AssemblyInfoInputs.cache
+C:\Users\utku_\source\repos\NN-TryAgain\obj\Debug\netcoreapp2.1\NN-TryAgain.AssemblyInfo.cs
+C:\Users\utku_\source\repos\NN-TryAgain\obj\Debug\netcoreapp2.1\NN-TryAgain.dll
+C:\Users\utku_\source\repos\NN-TryAgain\obj\Debug\netcoreapp2.1\NN-TryAgain.pdb
