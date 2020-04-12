@@ -10,13 +10,11 @@ namespace NN
     public class Network
     {
 
-        //TODO: Map nodes/connections in a 2D array to make sure updated weights go to the proper place
-        List<Layer> layers = new List<Layer>();
-        //List<Connection> connections = new List<Connection>();
+        public List<Layer> layers = new List<Layer>();
 
         //first index determines layer, second determines ending node, third determines starting node
         Connection[][][] connections;
-        public double learningRate = 0.5;
+        public double learningRate = 1;
 
         public Network(List<Layer> layers1)
         {
