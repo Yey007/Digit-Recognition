@@ -106,8 +106,9 @@ namespace NN
                                     }
                                     byte label = BinaryPrimitives.ReverseEndianness(brLabels.ReadByte());
 
+                                     
                                     Images.Add(new Image(pixels, label));
-
+                                    
                                 }
 
                                 return Images;

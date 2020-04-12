@@ -16,7 +16,7 @@ namespace NN
 
         //first index determines layer, second determines ending node, third determines starting node
         Connection[][][] connections;
-        public double learningRate = 0.2;
+        public double learningRate = 0.5;
 
         public Network(List<Layer> layers1)
         {
@@ -44,19 +44,6 @@ namespace NN
                     }
                 }
             }
-
-            /*
-            for(int i = layers.Count - 1; i > 0; i--)
-            {
-                foreach(Node node in layers[i].nodes)
-                {
-                    foreach(Node node1 in layers[i - 1].nodes)
-                    {
-                        connections.Add(new Connection(node1, node));
-                    }
-                }
-            }
-            */
         }
 
         public void PrintResults(Image image)
@@ -115,12 +102,13 @@ namespace NN
                 {
                     for (int k = 0; k < connections[i][j].Length; k++)
                     {
+                        connections[i][j][k].start.Activate();
                         connections[i][j][k].FeedForward();
                     }
                 }
             }
 
-            foreach (Node node in layers.Find(x => x.number == layers.Count - 1).nodes)
+            foreach (Node node in layers[layers.Count - 1].nodes)
             {
                 node.Activate();
             }
@@ -208,8 +196,10 @@ namespace NN
             }
         }
 
-        public void UpdateWeights()
+        public double[][][] WeightCalculations()
         {
+            double[][][] output = new double[layers.Count - 1][][];
+            int r = 0;
             foreach (Layer layer in layers.FindAll(x => x.number != 0))
             {
 
@@ -217,7 +207,6 @@ namespace NN
                 double[] errors = new double[layer.nodes.Count];
                 double[] gradients = new double[layer.nodes.Count];
                 double[][] deltas = new double[gradients.Length][];
-                double[] deltas1D = new double[gradients.Length * layers[layer.number - 1].nodes.Count];
 
                 //initialize deltas
                 for (int i = 0; i < deltas.Length; i++)
@@ -227,17 +216,14 @@ namespace NN
 
                 for (int i = 0; i < layer.nodes.Count; i++)
                 {
-                    //node.output = node.output * (1 - node.output); //apply derivitave of sigmoid to output
-                    //node.output
                     layer.nodes[i].output = layer.nodes[i].output * (1 - layer.nodes[i].output); //apply derivative of sigmoid to output
                     outputs[i] = layer.nodes[i].output;
                     errors[i] = layer.nodes[i].error;
                 }
 
-                //Vector<double> vector = new Vector<double>(outputs);
 
                 //Element-wise multiplication of the arrays + learning rate (step size)
-                for (int i = 0; i < outputs.Length; i++)
+                for (int i = 0; i < gradients.Length; i++)
                 {
                     gradients[i] = errors[i] * outputs[i];
                     gradients[i] *= learningRate;
@@ -252,34 +238,23 @@ namespace NN
                     }
                 }
 
-                /*
-                //transform to 1d array
-                int k = 0;
-                for (int i = 0; i < deltas.Length; i++)
+                output[r] = deltas;
+                r++;
+            }
+            return output;
+        }
+
+        public void UpdateWeights(double[][][] deltas)
+        {
+            for (int i = 0; i < connections.Length; i++)
+            {
+                for (int j = 0; j < connections[i].Length; j++)
                 {
-                    for (int j = 0; j < deltas[i].Length; j++)
+                    for (int k = 0; k < connections[i][j].Length; k++)
                     {
-                        deltas1D[k] = deltas[i][j];
-                        k++;
+                        connections[i][j][k].weight += deltas[i][j][k];
                     }
                 }
-
-                k = 0;
-                foreach (Connection connection in connections.FindAll(x => layer.nodes.Contains(x.start)))
-                {
-                    connection.weight += deltas1D[k];
-                    k++;
-                }
-                */
-
-                for (int j = 0; j < connections[layer.number - 1].Length; j++)
-                {
-                    for (int k = 0; k < connections[layer.number - 1][j].Length; k++)
-                    {
-                        connections[layer.number - 1][j][k].weight += deltas[j][k];
-                    }
-                }
-
             }
         }
 
@@ -334,7 +309,6 @@ namespace NN
 
         public void FeedForward()
         {
-            start.Activate();
             end.input += start.output * weight;
         }
     }
